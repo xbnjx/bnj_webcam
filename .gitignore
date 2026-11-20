@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+build/
+dist/
+
+# Android
+android/.gradle/
+android/.kotlin/
+android/local.properties
+android/app/build/
+android/app/release-key.jks
+
+# Client Packaging
+client/__pycache__/
+client/build/
+client/dist/
+client/BNJ_WebCam_Client/
+client/BNJ_MicCam_Client/
+client/installer_output/
+client/installer_output_webcam/
+client/*.spec
+client/*.tmp
+
+# Linux Packaging outputs
+packaging/linux/usr/share/bnj-webcam/
+*.deb
+
+# OBS Studio full release (omitted in favor of lightweight client/drivers/ <500 KB)
+client/obs/

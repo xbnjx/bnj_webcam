@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BNJ WebCam
+GenericName=Cámara Web Virtual USB
+Comment=Transforma tu teléfono Android en una cámara web profesional USB
+Exec=bnj-webcam
+Icon=bnj-webcam
+Terminal=false
+Categories=AudioVideo;Video;Recorder;
+Keywords=webcam;camera;android;usb;obs;v4l2;
+StartupNotify=true

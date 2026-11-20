@@ -1,0 +1,3 @@
+#!/bin/bash
+# Launcher para BNJ WebCam en Linux
+exec python3 /usr/share/bnj-webcam/main.py "$@"

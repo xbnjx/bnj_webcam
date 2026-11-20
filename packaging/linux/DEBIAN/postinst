@@ -1,0 +1,46 @@
+#!/bin/bash
+set -e
+
+# Configurar carga automática del módulo v4l2loopback
+echo "Configurando módulo de cámara virtual v4l2loopback..."
+mkdir -p /etc/modules-load.d /etc/modprobe.d
+
+echo "v4l2loopback" > /etc/modules-load.d/bnj-webcam.conf
+cat << 'EOF' > /etc/modprobe.d/bnj-webcam.conf
+options v4l2loopback devices=1 video_nr=10 card_label="BNJ WebCam" exclusive_caps=1
+EOF
+
+# Intentar cargar el módulo de inmediato si el kernel lo soporta
+modprobe v4l2loopback devices=1 video_nr=10 card_label="BNJ WebCam" exclusive_caps=1 2>/dev/null || true
+
+# Configurar reglas udev para permitir acceso USB a dispositivos Android sin root
+if [ ! -f /etc/udev/rules.d/51-android.rules ]; then
+    echo "Instalando reglas udev para depuración USB Android..."
+    cat << 'EOF' > /etc/udev/rules.d/51-android.rules
+# Android Debug Bridge (ADB) rules
+SUBSYSTEM=="usb", ATTR{idVendor}=="*", MODE="0666", GROUP="plugdev"
+EOF
+    udevadm control --reload-rules 2>/dev/null || true
+    udevadm trigger 2>/dev/null || true
+fi
+
+# Instalar dependencias adicionales de Python para CustomTkinter y PyVirtualCam si pip está presente
+if command -v pip3 >/dev/null 2>&1; then
+    pip3 install --quiet --upgrade customtkinter pyvirtualcam 2>/dev/null || true
+fi
+
+# Actualizar base de datos de iconos y menú de aplicaciones
+if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database -q /usr/share/applications || true
+fi
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+    gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor 2>/dev/null || true
+fi
+
+echo "==========================================================="
+echo "  BNJ WebCam se instaló correctamente."
+echo "  Para iniciar el cliente, ejecuta: bnj-webcam"
+echo "  o búscalo en el menú de aplicaciones de tu sistema."
+echo "==========================================================="
+
+exit 0

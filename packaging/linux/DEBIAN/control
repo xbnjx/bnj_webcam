@@ -1,0 +1,14 @@
+Package: bnj-webcam
+Version: 1.0.0
+Section: video
+Priority: optional
+Architecture: all
+Maintainer: Benjamin Duarte <contact@benjaminduarte.lat>
+Depends: python3 (>= 3.8), python3-tk, python3-pil, python3-pil.imagetk, python3-numpy, adb, v4l2loopback-dkms, v4l2loopback-utils
+Recommends: android-sdk-platform-tools-common
+Homepage: https://benjaminduarte.lat/
+Description: Transforma tu teléfono Android en una cámara web USB profesional
+ BNJ WebCam conecta un teléfono Android mediante USB usando túnel ADB
+ y genera una cámara web virtual en Linux (v4l2loopback) compatible con Zoom,
+ Google Meet, Microsoft Teams, Discord, OBS Studio y navegadores web.
+ Incluye soporte para vista previa y control de resolución y tasa de fotogramas.
